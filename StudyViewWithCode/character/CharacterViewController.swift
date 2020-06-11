@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CharacterViewController: UIViewController {
 
     var mainView: UIView!
     var stackView: UIStackView!
-    var presenter: Presenter?
+    var presenter: CharacterPresenter?
     var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -23,20 +23,21 @@ class ViewController: UIViewController {
         createStackView()
         createTableView()
         
-        presenter = Presenter(delegate: self)
-        
+        presenter = CharacterPresenter(delegate: self)
     }
     
     func createTableView() {
         tableView = UITableView()
         
-        tableView.register(CharacterCellCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CharacterCell.self, forCellReuseIdentifier: "cell")
         
         tableView.dataSource = self
         
         tableView.delegate = self
         
-        //tableView.separatorStyle = .none
+        tableView.separatorStyle = .none
+        
+        tableView.showsVerticalScrollIndicator = false
         
         stackView.addArrangedSubview(tableView)
     }
@@ -48,11 +49,11 @@ class ViewController: UIViewController {
         mainView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         mainView.translatesAutoresizingMaskIntoConstraints = false
         
-        let margins = self.view.layoutMarginsGuide
+        let margins = self.view.layoutMarginsGuide  
         
         NSLayoutConstraint.activate([
-            mainView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-            mainView.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
+            mainView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            mainView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
         
         if #available(iOS 11, *) {
@@ -98,13 +99,13 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter?.characters.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CharacterCellCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! CharacterCell
         
         cell.load(character: presenter!.characters[indexPath.row])
                 
@@ -116,7 +117,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ViewController: PresenterDelegate {
+extension CharacterViewController: CharacterPresenterDelegate {
     func loadData() {
         tableView.reloadData()
     }

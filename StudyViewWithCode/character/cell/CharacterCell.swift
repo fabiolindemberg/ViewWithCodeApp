@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class CharacterCellCell: UITableViewCell {
+class CharacterCell: UITableViewCell {
     
     var lblName: UILabel!
     var lblTitle: UILabel!
@@ -26,10 +26,25 @@ class CharacterCellCell: UITableViewCell {
     }
     
     func congigUI() {
+        
+        let vwContent = UIView()
+        
+        self.contentView.addSubview(vwContent)
+        
+        vwContent.translatesAutoresizingMaskIntoConstraints = false
+        vwContent.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        vwContent.setShadow(cornerRadius: 10)
+        NSLayoutConstraint.activate([
+            vwContent.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+            vwContent.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
+            vwContent.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, multiplier: 0.95),
+            vwContent.heightAnchor.constraint(equalTo: self.contentView.heightAnchor, multiplier: 0.9)
+        ])
+        
         let svContent = UIStackView()
         svContent.distribution = .fillProportionally
         
-        self.contentView.addSubview(svContent)
+        vwContent.addSubview(svContent)
         
         svContent.translatesAutoresizingMaskIntoConstraints = false
         svContent.axis = .horizontal
@@ -37,9 +52,10 @@ class CharacterCellCell: UITableViewCell {
         svContent.distribution = .fill
         
         NSLayoutConstraint.activate([
-            svContent.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-            svContent.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
-            svContent.heightAnchor.constraint(equalTo: self.contentView.heightAnchor, multiplier: 0.9)
+            svContent.centerYAnchor.constraint(equalTo: vwContent.centerYAnchor),
+            svContent.centerXAnchor.constraint(equalTo: vwContent.centerXAnchor),
+            svContent.widthAnchor.constraint(equalTo: vwContent.widthAnchor, multiplier: 0.95),
+            svContent.heightAnchor.constraint(equalTo: vwContent.heightAnchor, multiplier: 0.9)
         ])
         
         imgCharacter = UIImageView()

@@ -8,17 +8,17 @@
 
 import Foundation
 
-protocol PresenterDelegate {
+protocol CharacterPresenterDelegate {
     func loadData()
     func loadDataFail(message: String)
 }
 
-class Presenter {
+class CharacterPresenter {
     
-    var delegate: PresenterDelegate?
+    var delegate: CharacterPresenterDelegate?
     var characters: [Character] = []
     
-    init(delegate: PresenterDelegate?) {
+    init(delegate: CharacterPresenterDelegate?) {
         self.delegate = delegate
         loadData()
     }
