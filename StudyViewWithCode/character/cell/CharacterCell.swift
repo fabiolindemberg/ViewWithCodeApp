@@ -30,10 +30,13 @@ class CharacterCell: UITableViewCell {
         let vwContent = UIView()
         
         self.contentView.addSubview(vwContent)
+        self.contentView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
         vwContent.translatesAutoresizingMaskIntoConstraints = false
         vwContent.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         vwContent.setShadow(cornerRadius: 10)
+        vwContent.layer.cornerRadius = 10
+        
         NSLayoutConstraint.activate([
             vwContent.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
             vwContent.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
